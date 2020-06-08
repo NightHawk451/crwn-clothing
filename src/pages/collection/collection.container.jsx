@@ -1,32 +1,18 @@
-import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
-import CollectionItem from '../../components/collection-item/collection-item.component';
+import { selectIsCollectionsLoaded } from '../../redux/shop/shop.selectors';
+import WithSpinner from '../../components/with-spinner/with-spinner.component';
+import CollectionPage from './collection.component';
 
-import { selectCollection } from '../../redux/shop/shop.selectors';
-
-import {
-  CollectionPageContainer,
-  CollectionTitle,
-  CollectionItemsContainer
-} from './collection.styles';
-
-const CollectionPage = ({ collection }) => {
-  const { title, items } = collection;
-  return (
-    <CollectionPageContainer>
-      <CollectionTitle>{title}</CollectionTitle>
-      <CollectionItemsContainer>
-        {items.map(item => (
-          <CollectionItem key={item.id} item={item} />
-        ))}
-      </CollectionItemsContainer>
-    </CollectionPageContainer>
-  );
-};
-
-const mapStateToProps = (state, ownProps) => ({
-  collection: selectCollection(ownProps.match.params.collectionId)(state)
+const mapStateToProps = createStructuredSelector({
+  isLoading: state => !selectIsCollectionsLoaded(state)
 });
 
-export default connect(mapStateToProps)(CollectionPage);
+const CollectionPageContainer = compose(
+  connect(mapStateToProps),
+  WithSpinner
+)(CollectionPage);
+
+export default CollectionPageContainer;
