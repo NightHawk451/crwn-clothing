@@ -1,7 +1,6 @@
 
 
 import ShopActionTypes from './shop.types'
-import ShopPage from '../../pages/shop/shop.component';
 
 const INITIAL_STATE = {
   collections: null,
