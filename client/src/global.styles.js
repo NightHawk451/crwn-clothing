@@ -1,0 +1,22 @@
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: 'Open Sans Condensed';
+    padding: 20px 60px;
+
+    @media screen and (max-width: 800px) {
+      // some css
+      padding: 1000px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+`
